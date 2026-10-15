@@ -1,0 +1,71 @@
+.search-page {
+  min-height: 100vh;
+  background: #050505;
+  padding-bottom: 4rem;
+}
+
+.search-header {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 3rem 2rem 1rem;
+}
+
+.search-header h1 {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: #fff;
+}
+
+.search-header h1 em {
+  font-style: normal;
+  color: rgba(100, 149, 237, 0.95);
+}
+
+.search-header p {
+  margin-top: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+}
+
+.search-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.empty-state a {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: rgba(100, 149, 237, 0.9);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+
+@media (max-width: 1100px) {
+  .vehicle-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .vehicle-grid {
+    grid-template-columns: 1fr;
+  }
+}

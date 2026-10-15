@@ -1,0 +1,54 @@
+<div class="filters-panel" appScrollReveal>
+  <div class="filter-group">
+    <label for="filter-brand">Marca</label>
+    <select
+      id="filter-brand"
+      [ngModel]="catalog.filters().brand ?? ''"
+      (ngModelChange)="onBrandFilterChange($event)"
+    >
+      <option value="">Todas as marcas</option>
+      @for (b of catalog.availableBrands(); track b) {
+        <option [value]="b">{{ b }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="filter-speed">Velocidade máxima</label>
+    <select
+      id="filter-speed"
+      [ngModel]="catalog.filters().minSpeed ?? ''"
+      (ngModelChange)="onSpeedChange($event === '' || $event == null ? null : +$event)"
+    >
+      @for (opt of speedOptions; track opt.label) {
+        <option [ngValue]="opt.value">{{ opt.label }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="filter-price">Faixa de preço</label>
+    <select
+      id="filter-price"
+      [ngModel]="selectedPriceIndex"
+      (ngModelChange)="onPriceRangeChange(+$event)"
+    >
+      @for (range of priceRanges; track range.label; let i = $index) {
+        <option [ngValue]="i">{{ range.label }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label for="filter-sort">Ordenar por</label>
+    <select
+      id="filter-sort"
+      [ngModel]="catalog.filters().sort"
+      (ngModelChange)="onSortChange($event)"
+    >
+      @for (opt of sortOptions; track opt.value) {
+        <option [value]="opt.value">{{ opt.label }}</option>
+      }
+    </select>
+  </div>
+</div>

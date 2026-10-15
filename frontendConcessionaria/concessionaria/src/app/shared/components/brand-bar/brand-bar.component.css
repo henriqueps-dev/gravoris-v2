@@ -1,0 +1,55 @@
+.brand-bar-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.6), rgba(5, 5, 5, 0.9));
+}
+
+.brand-bar {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.brand-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.brand-item {
+  flex-shrink: 0;
+  padding: 1.35rem 1.75rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.35s, border-color 0.35s, background 0.35s;
+  white-space: nowrap;
+}
+
+.brand-item:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.brand-item.active {
+  color: #fff;
+  border-bottom-color: rgba(100, 149, 237, 0.8);
+  background: rgba(100, 149, 237, 0.06);
+}
+
+@media (max-width: 768px) {
+  .brand-item {
+    padding: 1rem 1.25rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+  }
+}

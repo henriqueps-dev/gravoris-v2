@@ -1,0 +1,157 @@
+<app-site-header />
+
+<main class="account-page">
+  <aside class="account-sidebar">
+    <div class="sidebar-profile">
+      <span class="profile-avatar">{{ auth.userInitial() }}</span>
+      <div>
+        <strong>{{ auth.currentUser()?.fullName }}</strong>
+        <small>{{ auth.currentUser()?.email }}</small>
+      </div>
+    </div>
+    <nav>
+      <button type="button" [class.active]="activeSection === 'perfil'" (click)="setSection('perfil')">Meu Perfil</button>
+      <button type="button" [class.active]="activeSection === 'pedidos'" (click)="setSection('pedidos')">Meus Pedidos</button>
+      <button type="button" [class.active]="activeSection === 'favoritos'" (click)="setSection('favoritos')">Favoritos</button>
+      <button type="button" [class.active]="activeSection === 'configuracoes'" (click)="setSection('configuracoes')">Configurações</button>
+      <button type="button" class="logout" (click)="auth.logout()">Sair</button>
+    </nav>
+  </aside>
+
+  <section class="account-content">
+    @switch (activeSection) {
+      @case ('perfil') {
+        <div class="section-top-bar">
+          <h1>Meu Perfil</h1>
+          @if (!editingProfile() && cliente()) {
+            <button type="button" class="btn-action-edit" (click)="startEditing()">
+              Editar Perfil
+            </button>
+          }
+        </div>
+
+        @if (loadingProfile()) {
+          <div class="orders-loading">
+            <span class="orders-spinner"></span>
+            Carregando dados do perfil...
+          </div>
+        } @else if (!editingProfile()) {
+          <div class="profile-card">
+            <p><span>Nome Completo</span>{{ cliente()?.name || auth.currentUser()?.fullName }}</p>
+            <p><span>E-mail</span>{{ cliente()?.email || auth.currentUser()?.email }}</p>
+            <p><span>Telefone</span>{{ formatPhone(cliente()?.phone || '') }}</p>
+            <p><span>CPF</span>{{ formatCpf(cliente()?.cpf || '') }}</p>
+            <p><span>Status da Conta</span><span class="status-badge-inline">{{ cliente()?.ativo ? 'Ativo' : 'Inativo' }}</span></p>
+          </div>
+        } @else {
+          <form class="profile-edit-form" (ngSubmit)="saveProfile()">
+            <label class="form-group">
+              <span>Nome Completo</span>
+              <input type="text" [(ngModel)]="editName" name="editName" required placeholder="Seu nome completo" />
+            </label>
+
+            <label class="form-group">
+              <span>E-mail</span>
+              <input type="email" [(ngModel)]="editEmail" name="editEmail" required placeholder="seu@email.com" />
+            </label>
+
+            <label class="form-group">
+              <span>Telefone</span>
+              <input type="tel" [(ngModel)]="editPhone" name="editPhone" required placeholder="(11) 99999-9999" />
+            </label>
+
+            <label class="form-group">
+              <span>CPF</span>
+              <input type="text" [(ngModel)]="editCpf" name="editCpf" required placeholder="000.000.000-00" />
+            </label>
+
+            <div class="form-actions">
+              <button type="button" class="btn-cancel" (click)="cancelEditing()" [disabled]="savingProfile()">
+                Cancelar
+              </button>
+              <button type="submit" class="btn-save" [disabled]="savingProfile()">
+                @if (savingProfile()) {
+                  <span class="orders-spinner" style="width: 14px; height: 14px; border-width: 2px;"></span> Salvando...
+                } @else {
+                  Salvar Alterações
+                }
+              </button>
+            </div>
+          </form>
+        }
+      }
+      @case ('pedidos') {
+        <h1>Meus Pedidos</h1>
+        @if (loadingOrders()) {
+          <div class="orders-loading">
+            <span class="orders-spinner"></span>
+            Carregando seus pedidos...
+          </div>
+        } @else if (orders().length > 0) {
+          <div class="orders-list">
+            @for (order of orders(); track order.id) {
+              <div class="order-card">
+                <div class="order-header">
+                  <div class="order-meta">
+                    <span class="order-id">Pedido #{{ order.id }}</span>
+                    <span class="order-date">{{ formatDate(order.dataPedido) }}</span>
+                  </div>
+                  <span class="status-badge" [class]="getStatusClass(order.status)">
+                    {{ order.status }}
+                  </span>
+                </div>
+
+                <div class="order-items">
+                  @for (item of order.itens; track item.produtoId) {
+                    <div class="order-item">
+                      <div class="order-item-info">
+                        @if (item.imagemUrl) {
+                          <img [src]="item.imagemUrl" [alt]="item.nome" class="order-item-image" />
+                        }
+                        <div class="order-item-meta">
+                          <span class="order-item-brand">{{ item.marca }}</span>
+                          <span class="order-item-name">{{ item.nome }}</span>
+                          <span class="order-item-qty">Qtd: {{ item.quantidade }}</span>
+                        </div>
+                      </div>
+                      <div class="order-item-price">
+                        {{ formatPrice(item.precoUnitario) }}
+                      </div>
+                    </div>
+                  }
+                </div>
+
+                <div class="order-footer">
+                  <span class="order-total-label">Total do Pedido</span>
+                  <span class="order-total-value">{{ formatPrice(order.total) }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="empty-msg">Nenhum pedido realizado ainda. Explore nossa coleção exclusiva.</p>
+          <a routerLink="/" class="link-btn">Ver catálogo</a>
+        }
+      }
+      @case ('favoritos') {
+        <h1>Favoritos</h1>
+        @if (favoriteVehicles().length > 0) {
+          <div class="favorites-grid">
+            @for (vehicle of favoriteVehicles(); track vehicle.id) {
+              <app-vehicle-card [vehicle]="vehicle" />
+            }
+          </div>
+        } @else {
+          <p class="empty-msg">Você ainda não favoritou nenhum veículo.</p>
+          <a routerLink="/" class="link-btn">Explorar veículos</a>
+        }
+      }
+      @case ('configuracoes') {
+        <h1>Configurações</h1>
+        <div class="profile-card">
+          <p class="empty-msg">Preferências de notificação e privacidade em breve.</p>
+        </div>
+      }
+    }
+  </section>
+</main>

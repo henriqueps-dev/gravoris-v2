@@ -1,0 +1,68 @@
+<app-site-header />
+
+<main class="cart-page" appScrollReveal>
+  <header class="cart-header">
+    <h1>Carrinho</h1>
+    <p>Revise sua seleção de superesportivos exclusivos.</p>
+  </header>
+
+  @if (cart.cartItems().length > 0) {
+    <div class="cart-table-wrap">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th>Veículo</th>
+            <th>Quantidade</th>
+            <th>Valor unitário</th>
+            <th>Subtotal</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of cart.cartItems(); track item.vehicle.id) {
+            <tr>
+              <td class="vehicle-cell">
+                <img [src]="item.vehicle.image" [alt]="item.vehicle.name" />
+                <div>
+                  <strong>{{ item.vehicle.name }}</strong>
+                  <span>{{ item.vehicle.brand }}</span>
+                </div>
+              </td>
+              <td>
+                <input
+                  type="number"
+                  min="1"
+                  [ngModel]="item.quantity"
+                  (ngModelChange)="updateQty(item.vehicle.id, +$event)"
+                />
+              </td>
+              <td>{{ formatPrice(item.vehicle.price) }}</td>
+              <td>{{ formatPrice(item.vehicle.price * item.quantity) }}</td>
+              <td>
+                <button type="button" class="btn-remove" (click)="remove(item.vehicle.id)">×</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="cart-footer">
+      <div class="total">
+        <span>Total geral</span>
+        <strong>{{ formatPrice(cart.totalPrice()) }}</strong>
+      </div>
+      <div class="cart-actions">
+        <button type="button" class="btn-secondary" (click)="clear()">Limpar Carrinho</button>
+        <button type="button" class="btn-primary" [disabled]="checkingOut()" (click)="checkout()">
+          @if (checkingOut()) { Processando... } @else { Finalizar Compra }
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="empty-cart">
+      <p>Seu carrinho está vazio.</p>
+      <a routerLink="/">Explorar veículos</a>
+    </div>
+  }
+</main>

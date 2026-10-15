@@ -1,0 +1,39 @@
+<app-site-header (search)="onHeaderSearch($event)" />
+
+<main class="search-page">
+  <header class="search-header">
+    @if (query()) {
+      <h1>Resultados para: <em>{{ query() }}</em></h1>
+      <p>{{ vehicles().length }} veículo(s) encontrado(s)</p>
+    } @else {
+      <h1>Busca de Veículos</h1>
+      <p>{{ vehicles().length }} veículo(s) disponível(is)</p>
+    }
+  </header>
+
+  <app-brand-bar (brandSelected)="refresh()" />
+  <div class="search-content">
+    <app-vehicle-filters (filtersChanged)="refresh()" />
+
+    @if (catalog.loading()) {
+      <div class="empty-state">
+        <p>Buscando veículos exclusivos...</p>
+      </div>
+    } @else if (catalog.error()) {
+      <div class="empty-state">
+        <p>{{ catalog.error() }}</p>
+      </div>
+    } @else if (vehicles().length > 0) {
+      <div class="vehicle-grid">
+        @for (vehicle of vehicles(); track vehicle.id) {
+          <app-vehicle-card [vehicle]="vehicle" />
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>Nenhum resultado para sua busca.</p>
+        <a routerLink="/">Explorar coleção completa</a>
+      </div>
+    }
+  </div>
+</main>

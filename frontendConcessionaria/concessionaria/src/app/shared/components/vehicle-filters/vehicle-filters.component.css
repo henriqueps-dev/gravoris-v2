@@ -1,0 +1,52 @@
+.filters-panel {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.filter-group select {
+  padding: 0.7rem 1rem;
+  background: rgba(5, 5, 5, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.filter-group select:focus {
+  border-color: rgba(100, 149, 237, 0.5);
+}
+
+@media (max-width: 1024px) {
+  .filters-panel {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .filters-panel {
+    grid-template-columns: 1fr;
+  }
+}

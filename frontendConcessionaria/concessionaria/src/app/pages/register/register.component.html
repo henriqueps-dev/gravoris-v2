@@ -1,0 +1,60 @@
+<div class="auth-page">
+  <video autoplay muted loop playsinline class="auth-video">
+    <source [src]="backgroundVideo" type="video/mp4" />
+  </video>
+  <div class="auth-overlay"></div>
+
+  <div class="auth-card">
+    <a routerLink="/" class="auth-logo">GRAVORIS</a>
+    <h1>Criar Conta</h1>
+    <p class="auth-subtitle">Junte-se à experiência Gravoris</p>
+
+    <form (ngSubmit)="submit()">
+      <label>
+        <span>Nome Completo</span>
+        <input type="text" name="fullName" [(ngModel)]="fullName" required autocomplete="name" placeholder="Seu nome" />
+      </label>
+
+      <label>
+        <span>E-mail</span>
+        <input type="email" name="email" [(ngModel)]="email" required autocomplete="email" placeholder="seu@email.com" />
+      </label>
+
+      <label>
+        <span>Telefone</span>
+        <input type="tel" name="phone" [(ngModel)]="phone" required autocomplete="tel" placeholder="+55 11 00000-0000" />
+      </label>
+
+      <label>
+        <span>CPF</span>
+        <input type="text" name="cpf" [(ngModel)]="cpf" required autocomplete="off" placeholder="00000000000" maxlength="14" />
+        <small class="field-hint">Apenas números, 11 dígitos</small>
+      </label>
+
+      <label>
+        <span>Senha</span>
+        <input type="password" name="password" [(ngModel)]="password" required autocomplete="new-password" placeholder="Mínimo 6 caracteres" />
+      </label>
+
+      <label>
+        <span>Confirmar Senha</span>
+        <input type="password" name="confirmPassword" [(ngModel)]="confirmPassword" required autocomplete="new-password" placeholder="Repita a senha" />
+      </label>
+
+      <button type="submit" class="btn-submit" [disabled]="loading()">
+        @if (loading()) {
+          <span class="loader"></span>
+          Criando...
+        } @else {
+          Criar Conta
+        }
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      Já tem conta?
+      <a routerLink="/login">Entrar</a>
+    </p>
+    <a routerLink="/" class="back-catalog">← Voltar para o catálogo</a>
+  </div>
+</div>

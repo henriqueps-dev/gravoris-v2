@@ -1,0 +1,315 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(5, 5, 5, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.site-header.transparent {
+  background: transparent;
+  border-bottom-color: transparent;
+  backdrop-filter: none;
+}
+
+.header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1.25rem 2rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  font-size: 1.75rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  color: #fff;
+  text-decoration: none;
+  justify-self: center;
+  transition: opacity 0.3s;
+}
+
+.logo:hover {
+  opacity: 0.75;
+}
+
+.search-form {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+  justify-self: end;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.search-form input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  outline: none;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.search-form input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.search-form input:focus {
+  border-color: rgba(100, 149, 237, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.action-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.3s, background 0.3s, border-color 0.3s;
+  text-decoration: none;
+}
+
+.action-link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.action-link:hover {
+  transform: scale(1.06);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(192, 192, 192, 0.3);
+}
+
+.cart-link {
+  position: relative;
+}
+
+.user-menu-wrap {
+  position: relative;
+}
+
+.user-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(100, 149, 237, 0.4);
+  background: linear-gradient(135deg, rgba(74, 111, 165, 0.5), rgba(107, 140, 206, 0.3));
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  font-family: inherit;
+}
+
+.user-avatar:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 16px rgba(74, 111, 165, 0.35);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 240px;
+  padding: 0.5rem 0;
+  background: rgba(12, 12, 12, 0.92);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  animation: dropdownIn 0.25s ease;
+  z-index: 200;
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dropdown-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(74, 111, 165, 0.5), rgba(107, 140, 206, 0.3));
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.dropdown-header strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.dropdown-header small {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.user-dropdown a,
+.logout-btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1.15rem;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.3s, color 0.3s;
+}
+
+.user-dropdown a:hover,
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.logout-btn {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 0.25rem;
+  color: rgba(220, 120, 120, 0.9);
+}
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  background: linear-gradient(135deg, #4a6fa5, #6b8cce);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: #fff;
+  transition: transform 0.3s;
+}
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .header-inner {
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .search-form {
+    display: none;
+  }
+
+  .logo {
+    font-size: 1.35rem;
+    justify-self: start;
+    grid-column: 2;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    background: rgba(15, 15, 15, 0.98);
+    transition: max-height 0.4s ease;
+  }
+
+  .mobile-nav.open {
+    max-height: 240px;
+  }
+
+  .mobile-nav a {
+    padding: 1rem 1.5rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background 0.3s;
+  }
+
+  .mobile-nav a:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+}

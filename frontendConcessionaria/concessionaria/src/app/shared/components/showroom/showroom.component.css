@@ -1,0 +1,121 @@
+.showroom {
+  background: #050505;
+  padding-bottom: 5rem;
+}
+
+.showroom-header {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(100, 149, 237, 0.9);
+  margin-bottom: 1rem;
+}
+
+.showroom-header h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.showroom-header p {
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.showroom-content {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.active-filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.active-filter strong {
+  color: #fff;
+}
+
+.active-filter button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.active-filter button:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.empty-state button {
+  margin-top: 1.5rem;
+  padding: 0.85rem 2rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  color: #fff;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.empty-state button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 1100px) {
+  .vehicle-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .showroom-content,
+  .showroom-header {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .vehicle-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,70 @@
+<app-site-header />
+
+@if (loading()) {
+  <main class="detail-page not-found">
+    <h1>Carregando detalhes do veículo...</h1>
+  </main>
+} @else if (vehicle(); as v) {
+  <main class="detail-page">
+    <a routerLink="/" class="back-link">← Voltar à coleção</a>
+
+    <div class="detail-layout">
+      <section class="gallery" appScrollReveal>
+        <div class="main-image">
+          <img [src]="v.gallery[selectedImageIndex] || v.image" [alt]="v.name" />
+        </div>
+        <div class="thumbnails">
+          @for (img of v.gallery; track img; let i = $index) {
+            <button
+              type="button"
+              class="thumb"
+              [class.active]="selectedImageIndex === i"
+              (click)="selectImage(i)"
+            >
+              <img [src]="img" [alt]="v.name + ' vista ' + (i + 1)" />
+            </button>
+          }
+        </div>
+      </section>
+
+      <section class="info" appScrollReveal>
+        <div class="info-top">
+          <span class="brand">{{ v.brand }}</span>
+          <button
+            type="button"
+            class="btn-favorite"
+            [class.active]="isFavorite()"
+            (click)="toggleFavorite()"
+            aria-label="Favoritar veículo"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          </button>
+        </div>
+        <h1>{{ v.name }}</h1>
+
+        <div class="spec-grid">
+          <div class="spec-item"><span>Ano</span><strong>{{ v.year }}</strong></div>
+          <div class="spec-item"><span>Motor</span><strong>{{ v.engine }}</strong></div>
+          <div class="spec-item"><span>Potência</span><strong>{{ v.power }} cv</strong></div>
+          <div class="spec-item"><span>Torque</span><strong>{{ v.torque }}</strong></div>
+          <div class="spec-item"><span>V. máxima</span><strong>{{ v.topSpeed }} km/h</strong></div>
+          <div class="spec-item"><span>0–100 km/h</span><strong>{{ v.acceleration }}</strong></div>
+        </div>
+
+        <p class="description">{{ v.description }}</p>
+
+        <div class="purchase">
+          <p class="price">{{ formatPrice(v.price) }}</p>
+          <button type="button" class="btn-cart" (click)="addToCart()">Adicionar ao Carrinho</button>
+        </div>
+      </section>
+    </div>
+  </main>
+} @else {
+  <main class="detail-page not-found">
+    <h1>Veículo não encontrado</h1>
+    <a routerLink="/">Retornar ao início</a>
+  </main>
+}

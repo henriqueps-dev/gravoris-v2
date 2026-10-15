@@ -1,0 +1,82 @@
+<div class="auth-page">
+  <video autoplay muted loop playsinline class="auth-video">
+    <source [src]="backgroundVideo" type="video/mp4" />
+  </video>
+  <div class="auth-overlay"></div>
+
+  <div class="auth-card">
+    <a routerLink="/" class="auth-logo">GRAVORIS</a>
+    @if (!isForgotPassword()) {
+      <h1>Entrar</h1>
+      <p class="auth-subtitle">Acesse sua conta exclusiva</p>
+      <form (ngSubmit)="submit()">
+        <label>
+          <span>E-mail</span>
+          <input type="email" name="email" [(ngModel)]="email" required autocomplete="email" placeholder="seu@email.com" />
+        </label>
+
+        <label>
+          <span>Senha</span>
+          <input type="password" name="password" [(ngModel)]="password" required autocomplete="current-password" placeholder="••••••••" />
+        </label>
+
+        <div class="auth-options">
+          <label class="checkbox">
+            <input type="checkbox" [(ngModel)]="remember" name="remember" />
+            <span>Lembrar-me</span>
+          </label>
+          <button type="button" class="link-btn" (click)="forgotPassword()">Esqueci minha senha</button>
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="loading()">
+          @if (loading()) {
+            <span class="loader"></span>
+            Entrando...
+          } @else {
+            Entrar
+          }
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Não tem conta?
+        <a routerLink="/cadastro">Criar conta</a>
+      </p>
+      <a routerLink="/" class="back-catalog">← Voltar para o catálogo</a>
+    } @else {
+      <h1>Recuperar Senha</h1>
+      <p class="auth-subtitle">Defina uma nova senha para sua conta</p>
+      <form (ngSubmit)="submitResetPassword()">
+        <label>
+          <span>E-mail</span>
+          <input type="email" name="email" [(ngModel)]="email" required autocomplete="email" placeholder="seu@email.com" />
+        </label>
+
+        <label>
+          <span>Nova Senha</span>
+          <input type="password" name="newPassword" [(ngModel)]="newPassword" required placeholder="••••••••" />
+        </label>
+
+        <label>
+          <span>Confirmar Nova Senha</span>
+          <input type="password" name="confirmNewPassword" [(ngModel)]="confirmNewPassword" required placeholder="••••••••" />
+        </label>
+
+        <button type="submit" class="btn-submit" [disabled]="loading()">
+          @if (loading()) {
+            <span class="loader"></span>
+            Redefinindo...
+          } @else {
+            Redefinir Senha
+          }
+        </button>
+      </form>
+
+      <p class="auth-footer">
+        Lembrou a senha?
+        <button type="button" class="link-btn" (click)="isForgotPassword.set(false)" style="font-size: 0.85rem; padding: 0; margin-left: 0.35rem;">Entrar</button>
+      </p>
+      <button type="button" class="back-catalog" (click)="isForgotPassword.set(false)" style="background: none; border: none; width: 100%; cursor: pointer;">← Voltar para o login</button>
+    }
+  </div>
+</div>
